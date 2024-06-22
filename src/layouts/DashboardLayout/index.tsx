@@ -33,6 +33,7 @@ const DashboardLayout = () => {
 
   React.useEffect(() => {
     if (isDesktop) setOpenmenu(true)
+    else setOpenmenu(false)
   }, [isDesktop])
 
   return (

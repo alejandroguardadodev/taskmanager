@@ -12,11 +12,14 @@ import MenuIcon from '@mui/icons-material/Menu'
 
 import Profile from './Profile'
 
-const HeaderToolBar = styled(Toolbar)(() => ({
+const HeaderToolBar = styled(Toolbar)(({ theme }) => ({
     padding: '0px 10px',
     minHeight: '48px !important',
     background: 'transparent !important',
-    borderBottom: '1px solid rgba(0, 0, 0, .2)'
+    borderBottom: '1px solid rgba(0, 0, 0, .2)',
+    [theme.breakpoints.down("lg")]: {
+        padding: '0px 5%',
+    }
 }))
 
 type OnActionHandle = () => void

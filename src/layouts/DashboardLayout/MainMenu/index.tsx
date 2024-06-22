@@ -28,6 +28,7 @@ const Container = styled(Drawer, {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start',
+        transition: 'width .2s ease-in-out',
     },
     [theme.breakpoints.up("lg")]: {
         '& .MuiDrawer-paper': {
@@ -36,6 +37,9 @@ const Container = styled(Drawer, {
     },
     ...(!menuopen && {
         width: '0px',
+        '& .MuiDrawer-paper': {
+            width: '0px',
+        }
     }),
 }))
 

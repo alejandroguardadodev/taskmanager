@@ -40,7 +40,6 @@ const ItemContent = ({ id, title, defaultExpanded=false, children, btntext, onAc
         sx={{
           flexDirection: "row-reverse !important",
           gap: '10px',
-          borderBottom: '1px solid rgba(0, 0, 0, .2)',
           minHeight: '48px !important',
           height: '48px !important',
         }}

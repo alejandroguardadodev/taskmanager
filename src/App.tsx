@@ -10,7 +10,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 
 import DashboardLayout from './layouts/DashboardLayout'
 
-import DashboardPage from './pages/DashboardPage'
+import DashboardPage from './pages/HomePage'
 
 function App() {
   return (

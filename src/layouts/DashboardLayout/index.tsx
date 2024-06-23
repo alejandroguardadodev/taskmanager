@@ -22,6 +22,19 @@ const Container = styled('article')(() => ({
     justifyContent: 'flex-start',
 }))
 
+const ContentContainer = styled(Stack)(({ theme }) => ({
+  flexGrow: 1, 
+  height: '100%',
+  padding: '0px',
+  margin: '0px',
+  [theme.breakpoints.down("lg")]: {
+    padding: '0px 3%',
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: '0px 5%',
+  },
+}))
+
 const DashboardLayout = () => {
 
   const { isDesktop } = useResponsive()
@@ -45,7 +58,9 @@ const DashboardLayout = () => {
             menuwidth={240}
             onClose={closeMenuHandle}
           />
-          <Outlet />
+          <ContentContainer flexDirection="column" justifyContent="flex-start" alignItems="center">
+            <Outlet />
+          </ContentContainer>
         </Stack>
     </Container>
   )

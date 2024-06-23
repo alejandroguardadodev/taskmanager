@@ -44,6 +44,30 @@ const theme = createTheme({
             fontSize: '.845rem',
             lineHeight: '1rem',
         },
+    },
+    components: {
+        MuiAccordionSummary: {
+            styleOverrides: {
+                root: {
+                    fontFamily: '"Open Sans", sans-serif',
+                    fontWeight: 400,
+                    fontSize: '.9rem',
+                    color: 'rgba(0, 0, 0, .8)'
+                }
+            }
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    fontFamily: "'Montserrat'",
+                    fontWeight: 600,
+                    fontSize: '.745rem',
+                    textTransform: 'uppercase',
+                    paddingTop: '6px',
+                    paddingBottom: '6px'
+                }
+            }
+        }
     }
 })
 

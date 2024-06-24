@@ -38,7 +38,7 @@ const WorkspaceSection = () => {
   const { pagewidth } = useResizePage(true)  
 
   const cardwidth = React.useMemo<number>(() => {
-    if (isMobile) return pagewidth? pagewidth : 240
+    if (isMobile) return pagewidth? pagewidth / 2 : 240
     else if (isTabletOrMobile) return 240
     
     return 240
@@ -47,6 +47,7 @@ const WorkspaceSection = () => {
   return (
     <ArticleContainer containerwidth={pagewidth}>
       <CardsContainer>
+        <WorkspaceCard width={cardwidth} />
         <WorkspaceCard width={cardwidth} />
         <WorkspaceCard width={cardwidth} />
       </CardsContainer>

@@ -30,6 +30,12 @@ const theme = createTheme({
     breakpoints,
     palette,
     typography: {
+        h5: {
+            fontFamily: '"Open Sans", sans-serif',
+            fontWeight: 600,
+            fontSize: '.9rem',
+            textTransform: 'uppercase',
+        },
         h6: {
             fontFamily: '"Open Sans", sans-serif',
             fontWeight: 800,

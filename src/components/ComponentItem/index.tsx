@@ -46,6 +46,8 @@ const Text = styled(ListItemText)(() => ({
     }
 }))
 
+type OnActionVoidHandle = () => void
+
 interface ItemPropsType {
     text: string;
     icon?: React.ReactNode;
@@ -53,11 +55,12 @@ interface ItemPropsType {
     dissablePaddingBottom?: boolean;
     solebutton?: boolean;
     mb?: number;
+    onAction?: OnActionVoidHandle;
 }
 
-const ComponentItem = ({ text, icon, dissableIconAnimation=false, dissablePaddingBottom=false, solebutton=false, mb }:ItemPropsType) => {
+const ComponentItem = ({ text, icon, dissableIconAnimation=false, dissablePaddingBottom=false, solebutton=false, mb, onAction }:ItemPropsType) => {
     return (
-        <CustomMenuItem solebutton={solebutton} dissableIconAnimation={dissableIconAnimation} dissablePaddingBottom={dissablePaddingBottom} sx={{ background: 'transparent !important', ...(mb && { marginBottom: `${mb}px` }) }} disableRipple>
+        <CustomMenuItem onClick={() => { onAction?.() }} solebutton={solebutton} dissableIconAnimation={dissableIconAnimation} dissablePaddingBottom={dissablePaddingBottom} sx={{ background: 'transparent !important', ...(mb && { marginBottom: `${mb}px` }) }} disableRipple>
             {icon && (
                 <ListItemIcon className='icon-object'>
                     {icon}

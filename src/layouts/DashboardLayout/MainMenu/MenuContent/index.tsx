@@ -1,5 +1,7 @@
 import { styled } from '@mui/system'
 
+import { useNavigate } from 'react-router-dom'
+
 import ItemContent from './ItemContent'
 import ComponentItem from '../../../../components/ComponentItem'
 
@@ -25,6 +27,9 @@ const Container = styled("div")(() => ({
 }))
 
 const MenuContent = () => {
+
+  const navigate = useNavigate()
+
   return (
     <Container>
       <Button startIcon={<AddCircleIcon />} sx={{ width: '90%', marginBottom: '10px' }} variant='outlined'>Task</Button>
@@ -36,6 +41,7 @@ const MenuContent = () => {
           dissablePaddingBottom
           solebutton
           mb={5}
+          onAction={() => { navigate("/") }}
         />
 
       <ComponentItem 

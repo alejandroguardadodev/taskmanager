@@ -4,11 +4,13 @@ import { Outlet } from "react-router-dom"
 
 import { styled } from '@mui/system'
 
+import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 
 import Header from "./Header"
 import MainMenu from "./MainMenu"
 
+import useResizePage from "../../hooks/useResizePage"
 import useResponsive from "../../hooks/useResponsive"
 
 const Container = styled('article')(() => ({
@@ -22,7 +24,9 @@ const Container = styled('article')(() => ({
     justifyContent: 'flex-start',
 }))
 
-const ContentContainer = styled(Stack)(({ theme }) => ({
+
+
+const ContentContainer = styled(Box)(({ theme }) => ({
   flexGrow: 1, 
   height: '100%',
   padding: '0px',
@@ -37,6 +41,8 @@ const ContentContainer = styled(Stack)(({ theme }) => ({
 
 const DashboardLayout = () => {
 
+  const { pageRef } = useResizePage()
+  
   const { isDesktop } = useResponsive()
 
   const [ openmenu, setOpenmenu ] = React.useState(false)
@@ -58,8 +64,19 @@ const DashboardLayout = () => {
             menuwidth={240}
             onClose={closeMenuHandle}
           />
-          <ContentContainer flexDirection="column" justifyContent="flex-start" alignItems="center">
-            <Outlet />
+          <ContentContainer>
+            <Stack 
+              ref={pageRef} 
+              flexDirection="column" 
+              justifyContent="flex-start" 
+              alignItems="center"
+              sx={{
+                width: '100%',
+                height: '100%',
+              }}
+              >
+                <Outlet />
+            </Stack>
           </ContentContainer>
         </Stack>
     </Container>

@@ -43,7 +43,7 @@ const DashboardLayout = () => {
 
   const { pageRef } = useResizePage()
   
-  const { isDesktop } = useResponsive()
+  const { isDesktop, isTablet } = useResponsive()
 
   const [ openmenu, setOpenmenu ] = React.useState(false)
 
@@ -61,7 +61,7 @@ const DashboardLayout = () => {
         <Stack flexDirection="row" justifyContent="flex-start" alignItems="center" sx={{ flexGrow: 1, width: '100%' }}>
           <MainMenu 
             open={openmenu}
-            menuwidth={240}
+            menuwidth={isTablet? 300: 240}
             onClose={closeMenuHandle}
           />
           <ContentContainer>

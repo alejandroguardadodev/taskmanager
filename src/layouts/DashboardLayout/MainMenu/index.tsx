@@ -71,7 +71,7 @@ const MainMenu = ({ open=true, menuwidth, onClose }:MainMenuPropsType) => {
             onClose={() => {if (!isDesktop) onClose?.();}}
             anchor="left"
         >
-            <MenuContent />
+            <MenuContent onMenuClose={onClose} />
         </Container>
     )
 }

@@ -11,6 +11,7 @@ import useResponsive from '../../../hooks/useResponsive'
 
 const CardsContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
+    scrollSnapAlign: 'start',
     [theme.breakpoints.down('sm')]: {
       //
     }
@@ -31,22 +32,27 @@ const ArticleContainer = styled("section", {
   scrollbarWidth: 'none',
 }))
 
+const DEFAULT_CARD_WIDTH = 240
+
 const WorkspaceSection = () => {
 
-  const { isTabletOrMobile, isMobile } = useResponsive()
+  const { isMobile } = useResponsive()
 
   const { pagewidth } = useResizePage(true)  
 
   const cardwidth = React.useMemo<number>(() => {
-    if (isMobile) return pagewidth? pagewidth / 2 : 240
-    else if (isTabletOrMobile) return 240
+    if (isMobile && pagewidth) return pagewidth / 2
     
-    return 240
-  }, [isTabletOrMobile, isMobile, pagewidth])
+    return DEFAULT_CARD_WIDTH
+  }, [isMobile, pagewidth])
 
   return (
     <ArticleContainer containerwidth={pagewidth}>
       <CardsContainer>
+        <WorkspaceCard width={cardwidth} />
+        <WorkspaceCard width={cardwidth} />
+        <WorkspaceCard width={cardwidth} />
+        <WorkspaceCard width={cardwidth} />
         <WorkspaceCard width={cardwidth} />
         <WorkspaceCard width={cardwidth} />
         <WorkspaceCard width={cardwidth} />

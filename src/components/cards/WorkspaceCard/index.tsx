@@ -18,9 +18,10 @@ const CardBox = styled(Box,{
 })<{ cardwidth: number; }>(({ theme, cardwidth }) => ({
   width: `${cardwidth}px`, 
   maxWidth: `${cardwidth}px`, 
+  padding: '10px 10px',
+  paddingBottom: '15px',
   background: 'transparent !important', 
   [theme.breakpoints.down('sm')]: {
-    padding: '0px 10px',
     boxSizing: 'border-box',
   },
 }))
@@ -29,7 +30,7 @@ const CardBody = styled(Card)(() => ({
   width: '100%', 
   padding: '10px 0px', 
   boxSizing: 'border-box', 
-  background: '#F2E7AC', 
+  background: '#D5EAF2', 
   border: '1px solid #594011',
   cursor: 'pointer',
   borderRadius: '5px',

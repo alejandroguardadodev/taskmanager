@@ -12,7 +12,7 @@ const Container = styled("article")(() => ({
 const HomePage = () => {
   return (
     <Container>
-      <WorkspaceSection />
+      <WorkspaceSection maxwidth={1500} />
     </Container>
   )
 }

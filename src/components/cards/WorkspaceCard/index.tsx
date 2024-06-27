@@ -30,7 +30,7 @@ const CardBody = styled(Card)(() => ({
   width: '100%', 
   padding: '10px 0px', 
   boxSizing: 'border-box', 
-  background: '#D5EAF2', 
+  background: 'transparent',//'#D5EAF2', 
   border: '1px solid #594011',
   cursor: 'pointer',
   borderRadius: '5px',

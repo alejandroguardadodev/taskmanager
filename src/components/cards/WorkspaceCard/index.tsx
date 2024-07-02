@@ -34,8 +34,14 @@ const CardBody = styled(Card)(() => ({
   border: '1px solid #594011',
   cursor: 'pointer',
   borderRadius: '5px',
+  '& .stack-card-title': {
+    transition: 'padding .2s ease-in-out',
+  },
   '&:hover': {
-    boxShadow: '0px 5px 20px -12px rgba(0,0,0,0.75)'
+    boxShadow: '0px 5px 20px -12px rgba(0,0,0,0.75)',
+    '& .stack-card-title': {
+      paddingLeft: '3px',
+    }
   },
 }))
 
@@ -50,7 +56,7 @@ const WorkspaceCard = ({ width }:WorkspaceCardPropsType) => {
     <CardBox cardwidth={width} >
       <CardBody elevation={0} >
         <CardContent>
-          <Stack flexDirection="row" alignItems="center">
+          <Stack className='stack-card-title' flexDirection="row" alignItems="center">
             <WorkIcon sx={{ color: '#594011', fontSize: '.9rem', marginRight: '4px' }} />
             <Typography variant='h5' sx={{ flexGrow: 1, color: '#594011' }}>Default</Typography>
           </Stack>

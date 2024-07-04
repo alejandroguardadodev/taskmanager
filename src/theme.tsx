@@ -73,6 +73,41 @@ const theme = createTheme({
                     paddingBottom: '6px'
                 }
             }
+        },
+        MuiTableSortLabel: {
+            styleOverrides: {
+                root: {
+                    fontFamily: '"Open Sans", sans-serif',
+                    fontWeight: 400,
+                    fontSize: '.9rem',
+                    color: 'black !important'
+                }
+            }
+        },
+        MuiTableCell: {
+            styleOverrides: {
+                root: {
+                    fontFamily: "'Montserrat'",
+                    fontWeight: 400,
+                    fontSize: '.8rem',
+                    color: 'black !important',
+                    '& .MuiButtonBase-root.MuiTableSortLabel-root svg': {
+                        fontSize: '.8rem'
+                    }
+                }
+            }
+        },
+        MuiMenu: {
+            styleOverrides: {
+                root: {
+                    '& .MuiPaper-root': {
+                        background: palette.background.default,
+                        border: '1px solid rgba(0, 0, 0, .3)',
+                        boxShadow: '0px 0px 14px -8px rgba(0,0,0,0.66) !important',
+                        marginTop: '5px',
+                    }
+                }
+            }
         }
     }
 })

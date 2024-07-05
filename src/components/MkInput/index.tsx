@@ -10,9 +10,14 @@ import Typography from '@mui/material/Typography'
 
 import Tooltip from '@mui/material/Tooltip'
 
+import DateField from './DateField'
+import TimeField from './TimeField'
+import SelectField from './SelectField'
+
 import IconButton from '@mui/material/IconButton'
 
 import NearbyErrorIcon from '@mui/icons-material/NearbyError'
+import { DateObject } from 'react-multi-date-picker'
 
 const FieldContainer = styled(Stack)(() => ({
     width: '100%' , 
@@ -51,19 +56,43 @@ const NomalInput = styled('input')(() => ({
     outline: 'none !important',
 }))
 
+const NomalTextArea = styled('textarea')(() => ({
+    fontFamily: '"Montserrat" !important',
+    fontSize: '.9rem',
+    fontWeight: '400',
+    flexGrow: '1',
+    padding: '8px 5px 8px 10px',
+    background: 'transparent',
+    border: 'none !important',
+    outline: 'none !important',
+    resize: 'none',
+}))
+
+interface KeyValue {
+    id: number | string;
+    name: string;
+}
+
 interface MkInputPropsType {
     id: string;
     title: string;
-    type?: "text" | "number" | "select";
+    defaultvalue?: number | string | Date | DateObject;
+    disabled?: boolean;
+    type?: "text" | "number" | "textarea" | "select" | "date" | "time";
     placeholder?: string,
     insideInput?: boolean;
     endIcon?: null | React.ReactNode;
+    mindate?: Date;
+    maxdate?: Date;
     onEndIconClick?: () => void;
+    values?: KeyValue[];
 }
 
-const MkInput = ({ id, title, type="text", placeholder="", insideInput=false, endIcon=null, onEndIconClick }:MkInputPropsType) => {
+const MkInput = ({ id, title, mindate, maxdate, defaultvalue="", disabled=false, type="text", placeholder="", insideInput=false, endIcon=null, values=[], onEndIconClick }:MkInputPropsType) => {
     
-    const { register, setValue, watch, formState: { errors }, trigger } = useFormContext() 
+    const [fieldvalue, setFieldvalue] = React.useState<number | string | Date | DateObject>(defaultvalue)
+
+    const { register, setValue, watch, formState: { errors } } = useFormContext() 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const isErr = React.useMemo(() => !!errors[id], [ errors, errors[id], id ])
@@ -77,15 +106,37 @@ const MkInput = ({ id, title, type="text", placeholder="", insideInput=false, en
         return "#206C65"
     }, [insideInput, isErr])
 
+    React.useEffect(() => {
+        const subscription = watch((value) => {
+            if (value) {
+                if (typeof value[id] === 'number') setFieldvalue(parseInt(value[id]))
+                else setFieldvalue(value[id])
+            }      
+        })
+        return () => subscription.unsubscribe()
+    }, [watch, id, setFieldvalue])
+
     const InputElement = React.useMemo<React.ReactNode>(() => {
 
         switch(type) {
 
+            case "select": 
+                return (<SelectField id={id} value={fieldvalue} setValue={setValue} disabled={disabled} values={values} />)
+
+            case "time":
+                return (<TimeField id={id} disabled={disabled} placeholder={placeholder} setValue={setValue} value={`${fieldvalue}`} />)
+
+            case "date": 
+                return (<DateField id={id} disabled={disabled} placeholder={placeholder} setValue={setValue} value={fieldvalue} mindate={mindate} maxdate={maxdate} />)
+
+            case "textarea":
+                return (<NomalTextArea className='input-component' id={`input-${id}`} rows={4} cols={50} disabled={disabled} placeholder={placeholder} {...register(id)} />)
+
             default:
-                return (<NomalInput className='input-component' id={`input-${id}`} type={type} placeholder={placeholder} {...register(id)} />)
+                return (<NomalInput className='input-component' id={`input-${id}`} disabled={disabled} type={type} placeholder={placeholder} {...register(id)} />)
         }
 
-    }, [type])
+    }, [type, id, disabled, setValue, fieldvalue, mindate, maxdate, register, placeholder, values])
     
     return (
         <FieldContainer>
@@ -101,7 +152,7 @@ const MkInput = ({ id, title, type="text", placeholder="", insideInput=false, en
                     </Tooltip>
                 )}
                 {InputElement}
-                {!insideInput && endIcon && (type === "text" || type === "number") && (<IconButton onClick={() => { onEndIconClick?.() }} disableRipple>{endIcon}</IconButton>)}
+                {!insideInput && endIcon && (type === "text" || type === "number" || type == "time") && (<IconButton onClick={() => { onEndIconClick?.() }} disableRipple>{endIcon}</IconButton>)}
             </InputContainer>
             {isErr && !insideInput && (
                 <Typography variant="caption" component="p" sx={{ color: '#400101', fontStyle: 'italic' }}>{errMessage}</Typography>

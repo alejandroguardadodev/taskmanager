@@ -1,4 +1,3 @@
-import React from 'react'
 import { styled } from '@mui/system'
 
 import { FormProvider, useForm } from 'react-hook-form'
@@ -20,8 +19,23 @@ const Form = styled('form')(() => ({
 }))
 
 
+const VALUES = [
+    {
+        id: 0,
+        name: "None"
+    },
+    {
+        id: 1,
+        name: "Select"
+    },
+    {
+        id: 2,
+        name: "Option"
+    }
+]
+
 const initValues:TaskSchemaType = { 
-    title: ''
+    title: ""
 }
 
 const TestForm = () => {
@@ -33,14 +47,14 @@ const TestForm = () => {
     })
 
     const onSubmit = (data:TaskSchemaType) => {
-        alert(data.title)
+        
     }
 
     return (
         <FormProvider {...methods}>
             <Form onSubmit={methods.handleSubmit(onSubmit)}>
                 <Box sx={{ maxWidth: '300px' }}>
-                    <MkInput id="title" title="Title" placeholder='Add Task' endIcon={<StarBorderIcon />} />
+                    <MkInput id="title" title="Title" type='select' placeholder='Task' endIcon={<StarBorderIcon />} defaultvalue={0} values={VALUES} />
                 </Box>
             </Form>
         </FormProvider>

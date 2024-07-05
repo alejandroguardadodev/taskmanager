@@ -17,6 +17,7 @@ import WorkIcon from '@mui/icons-material/Work'
 import HomeIcon from '@mui/icons-material/Home'
 import SearchIcon from '@mui/icons-material/Search'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone'
 
 import Divider from '@mui/material/Divider'
 
@@ -97,6 +98,15 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
           solebutton
           mb={5}
         />
+
+      <ComponentItem 
+        icon={<ContactPhoneIcon />}
+        text='Contacts'
+        dissableIconAnimation
+        dissablePaddingBottom
+        solebutton
+        mb={5}
+      />
 
       <ItemContent
         id="workspace-action"

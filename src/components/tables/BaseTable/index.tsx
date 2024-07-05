@@ -8,6 +8,9 @@ import Paper from '@mui/material/Paper'
 import TableContainer from '@mui/material/TableContainer' 
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
+import TablePagination from '@mui/material/TablePagination'
 
 import EnhancedTableHead from './EnhancedTableHead'
 
@@ -37,16 +40,29 @@ interface BaseTablePropsType {
     onAddButton?: handleVoidAction;
     maxHeight?: number;
     actionSection?: (row: unknown) => React.ReactNode;
+    startIcon?: (row: unknown) => React.ReactNode;
     submenuitems?: null | MenuItemType[];
+    rowsPerPage?: number;
+    page?: number;
 }
 
-const BaseTable = ({ header, data, reader, submenuitems=null, addButtonText, maxHeight=500, onAddButton, actionSection }:BaseTablePropsType) => {
+const BaseTable = ({ header, data, reader, submenuitems=null, addButtonText, maxHeight=500, onAddButton, actionSection, startIcon, rowsPerPage=10, page=0 }:BaseTablePropsType) => {
 
-    const { isMobile } = useResponsive()
+    const { isMobile, isTablet, isDesktop } = useResponsive()
 
     const [order, setOrder] = React.useState<'asc' | 'desc'>('asc')
     const [orderBy, setOrderBy] = React.useState<string>('title')
 
+    const hiddenFields = React.useMemo<string[]>(() => {
+        if (isDesktop) return []
+
+        return header.filter((head) => (isMobile && !head.showMobile) || (isTablet && !head.showTablet)).map((head) => head.label.toLowerCase())
+        
+    }, [isMobile, isTablet, isDesktop, header])
+
+    const totalrows = React.useMemo(() => data? data.length : 0, [data])
+
+    const emptyRows = React.useMemo<number>( () => rowsPerPage - totalrows, [rowsPerPage, totalrows])
 
     const handleRequestSort = ( _event: React.MouseEvent<unknown>, property: string) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -115,11 +131,27 @@ const BaseTable = ({ header, data, reader, submenuitems=null, addButtonText, max
                                     data={_row}
                                     action={actionSection && actionSection(row)}
                                     items={submenuitems}
+                                    hidefileds={hiddenFields}
+                                    starticon={startIcon && startIcon(row)}
                                 />
                             })}
+                            {emptyRows > 0 && (
+                                <TableRow style={{ height: (33) * emptyRows, }} >
+                                    <TableCell colSpan={6} />
+                                </TableRow>
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={isMobile? [] : [5, 10, 25]}
+                    component="div"
+                    count={totalrows}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={() => {}}
+                    onRowsPerPageChange={() => {}}
+                />
             </Paper>
         </Box>
     )

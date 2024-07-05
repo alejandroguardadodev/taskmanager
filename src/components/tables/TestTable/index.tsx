@@ -15,13 +15,13 @@ const TESTHEADER = [
   },
   {
       id: 'due',
-      showMobile: true,
+      showMobile: false,
       showTablet: true,
       label: 'Due',
   },
   {
       id: 'status',
-      showMobile: true,
+      showMobile: false,
       showTablet: true,
       label: 'Status',
   }
@@ -61,6 +61,12 @@ const TestTable = () => {
           const task = data as ITask
 
           return <IconButton disableRipple onClick={() => { alert(task.title) }}><ArrowForwardIosIcon sx={{ fontSize: '.7rem' }} /></IconButton>
+
+        }}
+        startIcon={(data:unknown) => {
+          const task = data as ITask
+
+          return <IconButton disableRipple onClick={() => { alert(task.title) }}><StarBorderIcon sx={{ fontSize: '1rem' }} /></IconButton>
 
         }}
         submenuitems={items}

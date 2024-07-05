@@ -1,4 +1,10 @@
-import { ITblCell } from "./Table";
+import * as yup from "yup"
+
+import { ITblCell } from "./Table"
+
+import { TaskSchema } from "../schemas"
+
+export type TaskSchemaType = yup.InferType<typeof TaskSchema>
 
 export interface ITask {
     id: number;

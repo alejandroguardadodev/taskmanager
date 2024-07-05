@@ -50,6 +50,16 @@ const theme = createTheme({
             fontSize: '.845rem',
             lineHeight: '1rem',
         },
+        subtitle1: {
+            color: 'black',
+            fontFamily: '"Open Sans", sans-serif',
+            fontSize: '1rem',
+        },
+        caption: {
+            fontFamily: "'Montserrat'",
+            fontWeight: '400',
+            fontSize: '.8rem',
+        }
     },
     components: {
         MuiAccordionSummary: {
@@ -93,6 +103,22 @@ const theme = createTheme({
                     color: 'black !important',
                     '& .MuiButtonBase-root.MuiTableSortLabel-root svg': {
                         fontSize: '.8rem'
+                    }
+                }
+            }
+        },
+        MuiTablePagination: {
+            styleOverrides: {
+                root: {
+                    '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows': {
+                        fontFamily: "'Montserrat'",
+                        fontWeight: 400,
+                        color: 'rgba(0, 0, 0, .7) !important',
+                        pointerEvents: 'none',
+                        userSelect: 'none'
+                    },
+                    '& input': {
+                        fontFamily: "'Montserrat'",
                     }
                 }
             }

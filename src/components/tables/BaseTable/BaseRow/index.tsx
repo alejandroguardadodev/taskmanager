@@ -43,9 +43,11 @@ interface BaseRowPropsType {
     data: ITblCell[];
     action?: null | React.ReactNode;
     items?: null | MenuItemType[];
+    hidefileds?: string[]
+    starticon?: null | React.ReactNode;
 }
 
-const BaseRow = ({ data, action=null, items=null }:BaseRowPropsType) => {
+const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[] }:BaseRowPropsType) => {
 
     const [mousePosition, setMousePosition] = React.useState<null | MousePositionType>(null)
     
@@ -84,8 +86,9 @@ const BaseRow = ({ data, action=null, items=null }:BaseRowPropsType) => {
                         })
                     }
                 }}
-            >
-                {data.map((column, index) => (
+                >
+
+                {data.filter((column) => !hidefileds.includes(column.key)).map((column, index) => (
                     <CustomCell  
                         key={`col-${column.key}-${index}`}
                         sx={{ 
@@ -96,6 +99,7 @@ const BaseRow = ({ data, action=null, items=null }:BaseRowPropsType) => {
                         }}
                         align="left"
                     >
+                        {index == 0 && starticon}
                         {column.value}
                     </CustomCell>
                 ))}

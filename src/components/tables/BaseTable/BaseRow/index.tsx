@@ -11,6 +11,8 @@ import MenuItem from '@mui/material/MenuItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 
+import FormRow from './FormRow'
+
 import { ITblCell } from '../../../../models/Table'
 
 const MenuListItemIcon = styled(ListItemIcon)(() => ({
@@ -39,17 +41,26 @@ interface MenuItemType {
     icon?: React.ReactNode;
 }
 
+interface InputCellType {
+    id: string;
+    type: 'text';
+}
+
 interface BaseRowPropsType {
     data: ITblCell[];
     action?: null | React.ReactNode;
     items?: null | MenuItemType[];
     hidefileds?: string[]
     starticon?: null | React.ReactNode;
+    inputcells?: InputCellType[];
 }
 
-const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[] }:BaseRowPropsType) => {
+const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[], inputcells=[] }:BaseRowPropsType) => {
+
+    const cellRef = React.useRef<HTMLTableCellElement>(null);
 
     const [mousePosition, setMousePosition] = React.useState<null | MousePositionType>(null)
+    const [fieldasinput, setFiledAsInput] = React.useState<null | InputCellType>(null)
     
     const openSubMenu = React.useMemo(() => Boolean(mousePosition), [mousePosition])
 
@@ -65,7 +76,24 @@ const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[] 
         }
     }, [openSubMenu, mousePosition])
 
+
     const handleSubMenuClose = () => { setMousePosition(null); }
+
+    const handleOutsideClick = (e:MouseEvent) => {
+        
+        if (!fieldasinput) return
+
+        if (cellRef.current && !cellRef.current.contains(e.target as Node)) {
+            setFiledAsInput(null)
+        }
+    };
+
+    React.useEffect(() => {
+        document.addEventListener("mousedown", handleOutsideClick);
+        return () => {
+          document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    });
 
     return (
         <>
@@ -91,16 +119,31 @@ const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[] 
                 {data.filter((column) => !hidefileds.includes(column.key)).map((column, index) => (
                     <CustomCell  
                         key={`col-${column.key}-${index}`}
+                        ref={(fieldasinput && fieldasinput.id == column.key)? cellRef : null}
                         sx={{ 
                             textTransform: 'capitalize',
                             ...(column.maxWidth && {
                                 width: `${column.maxWidth}px`
+                            }),
+                            ...(fieldasinput && fieldasinput.id == column.key && {
+                                paddingLeft: '10px'
                             })
                         }}
                         align="left"
+                        onDoubleClick={() => {
+                            const field = inputcells.find((head) => head.id == column.key)
+
+                            if (field) 
+                                setFiledAsInput(field)
+                        }}
                     >
-                        {index == 0 && starticon}
-                        {column.value}
+                        {fieldasinput && fieldasinput.id == column.key && (
+                            <FormRow id={'data'} title={column.key} type={fieldasinput.type} defaultValue={column.value} />
+                        )}
+
+                        {(!fieldasinput || fieldasinput.id !== column.key) && index == 0 && starticon}
+                        {(!fieldasinput || fieldasinput.id !== column.key) && column.value}
+                        
                     </CustomCell>
                 ))}
 

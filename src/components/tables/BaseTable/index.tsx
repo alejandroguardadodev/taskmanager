@@ -1,3 +1,5 @@
+import { ObjectSchema, AnyObject } from 'yup'
+
 import React from 'react'
 
 import Box from '@mui/material/Box'
@@ -21,11 +23,18 @@ import BaseRow from './BaseRow'
 
 import { ITblHead, ITblCell } from '../../../models/Table'
 
+import { InlineSchema } from '../../../schemas'
+
 import useResponsive from '../../../hooks/useResponsive'
 
 type handleVoidAction = () => void
 
 type handleReader = (row: unknown) => null | ITblCell[]
+
+interface InputCellType {
+    id: string;
+    type: "text";
+}
 
 interface MenuItemType {
     title: string;
@@ -59,6 +68,13 @@ const BaseTable = ({ header, data, reader, submenuitems=null, addButtonText, max
         return header.filter((head) => (isMobile && !head.showMobile) || (isTablet && !head.showTablet)).map((head) => head.label.toLowerCase())
         
     }, [isMobile, isTablet, isDesktop, header])
+
+    const inputcells = React.useMemo<InputCellType[]>(() => {
+        return header.filter((head) => Boolean(head.inputtype)).map((head) => ({
+            id: head.id,
+            type: head.inputtype? head.inputtype : 'text'
+        }))
+    }, [header])
 
     const totalrows = React.useMemo(() => data? data.length : 0, [data])
 
@@ -133,6 +149,7 @@ const BaseTable = ({ header, data, reader, submenuitems=null, addButtonText, max
                                     items={submenuitems}
                                     hidefileds={hiddenFields}
                                     starticon={startIcon && startIcon(row)}
+                                    inputcells={inputcells}
                                 />
                             })}
                             {emptyRows > 0 && (

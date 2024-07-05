@@ -6,12 +6,16 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import { ITask, TaskReader } from "../../../models/Task"
 
+import { TaskSchema } from "../../../schemas"
+
 const TESTHEADER = [
   {
       id: 'title',
       showMobile: true,
       showTablet: true,
       label: 'Task',
+      inputtype: "text",
+      schema: TaskSchema
   },
   {
       id: 'due',

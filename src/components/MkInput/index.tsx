@@ -75,7 +75,7 @@ interface KeyValue {
 
 interface MkInputPropsType {
     id: string;
-    title: string;
+    title?: string;
     defaultvalue?: number | string | Date | DateObject;
     disabled?: boolean;
     type?: "text" | "number" | "textarea" | "select" | "date" | "time";
@@ -88,8 +88,8 @@ interface MkInputPropsType {
     values?: KeyValue[];
 }
 
-const MkInput = ({ id, title, mindate, maxdate, defaultvalue="", disabled=false, type="text", placeholder="", insideInput=false, endIcon=null, values=[], onEndIconClick }:MkInputPropsType) => {
-    
+const MkInput = ({ id, title="", mindate, maxdate, defaultvalue="", disabled=false, type="text", placeholder="", insideInput=false, endIcon=null, values=[], onEndIconClick }:MkInputPropsType) => {
+
     const [fieldvalue, setFieldvalue] = React.useState<number | string | Date | DateObject>(defaultvalue)
 
     const { register, setValue, watch, formState: { errors } } = useFormContext() 
@@ -133,13 +133,13 @@ const MkInput = ({ id, title, mindate, maxdate, defaultvalue="", disabled=false,
                 return (<NomalTextArea className='input-component' id={`input-${id}`} rows={4} cols={50} disabled={disabled} placeholder={placeholder} {...register(id)} />)
 
             default:
-                return (<NomalInput className='input-component' id={`input-${id}`} disabled={disabled} type={type} placeholder={placeholder} {...register(id)} />)
+                return (<NomalInput autoFocus={insideInput} className='input-component' id={`input-${id}`} disabled={disabled} type={type} placeholder={placeholder} {...register(id)} />)
         }
 
-    }, [type, id, disabled, setValue, fieldvalue, mindate, maxdate, register, placeholder, values])
+    }, [type, id, disabled, setValue, fieldvalue, mindate, maxdate, register, placeholder, values, insideInput])
     
     return (
-        <FieldContainer>
+        <FieldContainer sx={{ ...(insideInput && { padding: '0px !important', margin: '0px !important' }) }}>
             {title && !insideInput && (
                 <label htmlFor={`input-${id}`}>
                     <Typography variant='subtitle1' component="p">{title}</Typography>
@@ -147,7 +147,7 @@ const MkInput = ({ id, title, mindate, maxdate, defaultvalue="", disabled=false,
             )}
             <InputContainer borderColor={inputContainerBoderColor} isInside={insideInput}>
                 {insideInput && isErr && (
-                    <Tooltip title={errMessage} arrow>
+                    <Tooltip title={`${title} ${errMessage}`.trim()} arrow>
                         <NearbyErrorIcon sx={{ color: '#400101', fontSize: '.9rem' }} />
                     </Tooltip>
                 )}

@@ -1,5 +1,3 @@
-import { ObjectSchema, AnyObject } from 'yup'
-
 import React from 'react'
 
 import Box from '@mui/material/Box'
@@ -23,8 +21,6 @@ import BaseRow from './BaseRow'
 
 import { ITblHead, ITblCell } from '../../../models/Table'
 
-import { InlineSchema } from '../../../schemas'
-
 import useResponsive from '../../../hooks/useResponsive'
 
 type handleVoidAction = () => void
@@ -34,6 +30,7 @@ type handleReader = (row: unknown) => null | ITblCell[]
 interface InputCellType {
     id: string;
     type: "text";
+    onClick?: (data:unknown) => void;
 }
 
 interface MenuItemType {
@@ -72,7 +69,8 @@ const BaseTable = ({ header, data, reader, submenuitems=null, addButtonText, max
     const inputcells = React.useMemo<InputCellType[]>(() => {
         return header.filter((head) => Boolean(head.inputtype)).map((head) => ({
             id: head.id,
-            type: head.inputtype? head.inputtype : 'text'
+            type: head.inputtype? head.inputtype : 'text',
+            onClick: head.onClick,
         }))
     }, [header])
 

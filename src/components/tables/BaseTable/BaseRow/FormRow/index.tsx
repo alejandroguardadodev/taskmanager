@@ -18,8 +18,8 @@ type SchemaType = yup.InferType<typeof InlineSchema>
 
 const Form = styled('form')(() => ({
     width: '100%',
-    padding: '0px',
-    margin: '0px'
+    padding: '1px 0px',
+    margin: '0px',
 }))
 
 interface FormRowPropsType {
@@ -27,9 +27,10 @@ interface FormRowPropsType {
     type: 'text';
     title: string;
     defaultValue?: string;
+    onClick?: (data:unknown) => void;
 }
 
-const FormRow = ({ id, type, title, defaultValue="" }:FormRowPropsType) => {
+const FormRow = ({ id, type, title, defaultValue="", onClick }:FormRowPropsType) => {
 
     const methods = useForm<SchemaType>({
         defaultValues: {
@@ -40,7 +41,7 @@ const FormRow = ({ id, type, title, defaultValue="" }:FormRowPropsType) => {
     });
 
     const onSubmit = (data:SchemaType) => {
-        alert(data.data)
+        onClick?.(data.data)
     }
 
     return (

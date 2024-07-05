@@ -6,8 +6,6 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import { ITask, TaskReader } from "../../../models/Task"
 
-import { TaskSchema } from "../../../schemas"
-
 const TESTHEADER = [
   {
       id: 'title',
@@ -15,7 +13,9 @@ const TESTHEADER = [
       showTablet: true,
       label: 'Task',
       inputtype: "text",
-      schema: TaskSchema
+      onClick: (data:unknown) => {
+        alert(`Data: ${data}`)
+      } 
   },
   {
       id: 'due',

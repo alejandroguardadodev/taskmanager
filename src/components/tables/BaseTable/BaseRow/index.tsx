@@ -44,6 +44,7 @@ interface MenuItemType {
 interface InputCellType {
     id: string;
     type: 'text';
+    onClick?: (data:unknown) => void;
 }
 
 interface BaseRowPropsType {
@@ -126,7 +127,7 @@ const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[],
                                 width: `${column.maxWidth}px`
                             }),
                             ...(fieldasinput && fieldasinput.id == column.key && {
-                                paddingLeft: '10px'
+                                paddingLeft: '10px',
                             })
                         }}
                         align="left"
@@ -138,7 +139,7 @@ const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[],
                         }}
                     >
                         {fieldasinput && fieldasinput.id == column.key && (
-                            <FormRow id={'data'} title={column.key} type={fieldasinput.type} defaultValue={column.value} />
+                            <FormRow id={'data'} title={column.key} onClick={fieldasinput.onClick} type={fieldasinput.type} defaultValue={column.value} />
                         )}
 
                         {(!fieldasinput || fieldasinput.id !== column.key) && index == 0 && starticon}

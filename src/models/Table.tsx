@@ -1,4 +1,3 @@
-import { AnyObject, ObjectSchema } from "yup";
 
 export interface ITblHead {
     id: string;
@@ -6,7 +5,8 @@ export interface ITblHead {
     showTablet: boolean;
     label: string;
     inputtype?: "text";
-    schema?: null | ObjectSchema<AnyObject>;
+    onClick?: (data:unknown) => void;
+    getColor?: (type: string) => string;
 }
 
 export interface ITblCell {

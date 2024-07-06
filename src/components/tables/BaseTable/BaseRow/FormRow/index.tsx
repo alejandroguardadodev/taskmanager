@@ -24,13 +24,13 @@ const Form = styled('form')(() => ({
 
 interface FormRowPropsType {
     id: string;
-    type: 'text';
+    type: 'text' | 'select';
     title: string;
     defaultValue?: string;
-    onClick?: (data:unknown) => void;
+    onSubmit?: (data:unknown) => void;
 }
 
-const FormRow = ({ id, type, title, defaultValue="", onClick }:FormRowPropsType) => {
+const FormRow = ({ id, type, title, defaultValue="", onSubmit }:FormRowPropsType) => {
 
     const methods = useForm<SchemaType>({
         defaultValues: {
@@ -40,13 +40,13 @@ const FormRow = ({ id, type, title, defaultValue="", onClick }:FormRowPropsType)
         mode: "onChange"
     });
 
-    const onSubmit = (data:SchemaType) => {
-        onClick?.(data.data)
+    const onFormSubmit = (data:SchemaType) => {
+        onSubmit?.(data.data)
     }
 
     return (
         <FormProvider {...methods}>
-            <Form onSubmit={methods.handleSubmit(onSubmit)}>
+            <Form onSubmit={methods.handleSubmit(onFormSubmit)}>
                 <Box sx={{ width: '100%' }}>
                     <MkInput id={id} title={title} type={type} defaultvalue={defaultValue} insideInput/>
                 </Box>

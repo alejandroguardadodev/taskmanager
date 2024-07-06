@@ -13,7 +13,9 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 
 import FormRow from './FormRow'
 
-import { ITblCell } from '../../../../models/Table'
+import Chip from '@mui/material/Chip'
+
+import { ITblCell, ITblKeyValue } from '../../../../models/Table'
 
 const MenuListItemIcon = styled(ListItemIcon)(() => ({
     '& svg': {
@@ -31,6 +33,11 @@ const CustomCell = styled(TableCell)(() => ({
     padding: '6px 0px'
 }))
 
+interface InputStyleType {
+    id: string;
+    decoration: ITblKeyValue[];
+}
+
 interface MousePositionType {
     x: number;
     y: number;
@@ -43,8 +50,8 @@ interface MenuItemType {
 
 interface InputCellType {
     id: string;
-    type: 'text';
-    onClick?: (data:unknown) => void;
+    type: 'text' | "select";
+    onSubmit?: (data:unknown) => void;
 }
 
 interface BaseRowPropsType {
@@ -54,9 +61,10 @@ interface BaseRowPropsType {
     hidefileds?: string[]
     starticon?: null | React.ReactNode;
     inputcells?: InputCellType[];
+    inputStyle?: InputStyleType[];
 }
 
-const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[], inputcells=[] }:BaseRowPropsType) => {
+const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[], inputcells=[], inputStyle=[] }:BaseRowPropsType) => {
 
     const cellRef = React.useRef<HTMLTableCellElement>(null);
 
@@ -87,7 +95,25 @@ const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[],
         if (cellRef.current && !cellRef.current.contains(e.target as Node)) {
             setFiledAsInput(null)
         }
-    };
+    }
+
+    const WriteContent = (column:ITblCell):React.ReactNode => {
+        const stylecolumn = inputStyle.find((style) => style.id == column.key)
+
+        const decoration = stylecolumn?.decoration.find((label) => label.key == column.value)
+
+        if (stylecolumn) return (<Chip 
+            sx={{
+                background: decoration?.style.background,
+                color: decoration?.style.color,
+                fontWeight: decoration?.style.fontWeight,
+                fontSize: decoration?.style.fontSize,
+            }} 
+            label={column.value} 
+        />)
+
+        return column.value
+    }
 
     React.useEffect(() => {
         document.addEventListener("mousedown", handleOutsideClick);
@@ -139,11 +165,11 @@ const BaseRow = ({ data, action=null, starticon=null, items=null, hidefileds=[],
                         }}
                     >
                         {fieldasinput && fieldasinput.id == column.key && (
-                            <FormRow id={'data'} title={column.key} onClick={fieldasinput.onClick} type={fieldasinput.type} defaultValue={column.value} />
+                            <FormRow id={'data'} title={column.key} onSubmit={fieldasinput.onSubmit} type={fieldasinput.type} defaultValue={column.value} />
                         )}
 
                         {(!fieldasinput || fieldasinput.id !== column.key) && index == 0 && starticon}
-                        {(!fieldasinput || fieldasinput.id !== column.key) && column.value}
+                        {(!fieldasinput || fieldasinput.id !== column.key) && WriteContent(column)}
                         
                     </CustomCell>
                 ))}

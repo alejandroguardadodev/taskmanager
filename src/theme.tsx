@@ -134,6 +134,15 @@ const theme = createTheme({
                     }
                 }
             }
+        },
+        MuiChip: {
+            styleOverrides: {
+                root: {
+                    fontFamily: "'Montserrat'",
+                    fontWeight: 500,
+                    fontSize: '.7rem',
+                }
+            }
         }
     }
 })

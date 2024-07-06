@@ -6,16 +6,18 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import { ITask, TaskReader } from "../../../models/Task"
 
+import { ITblHead } from "../../../models/Table"
+
 import useModal from "../../../hooks/useModal"
 
-const TESTHEADER = [
+const TESTHEADER:ITblHead[] = [
   {
       id: 'title',
       showMobile: true,
       showTablet: true,
       label: 'Task',
       inputtype: "text",
-      onClick: (data:unknown) => {
+      onSubmit: (data:unknown) => {
         alert(`Data: ${data}`)
       } 
   },
@@ -30,6 +32,35 @@ const TESTHEADER = [
       showMobile: false,
       showTablet: true,
       label: 'Status',
+      decoration: [
+        {
+          key: "TO DO",
+          style: {
+            background: '#F0E2BC',
+            color: 'black',
+            fontWeight: '600',
+            fontSize: '.7rem',
+          }
+        },
+        {
+          key: "DOING",
+          style: {
+            background: '#ABE6BC',
+            color: 'black',
+            fontWeight: '600',
+            fontSize: '.7rem',
+          }
+        },
+        {
+          key: "DONE",
+          style: {
+            background: '#F7B533',
+            color: 'black',
+            fontWeight: '600',
+            fontSize: '.7rem',
+          }
+        }
+      ]
   }
 ]
 
@@ -45,6 +76,12 @@ const data = [
     title: 'Test 2',
     status: 'DONE',
     due_date: '01/30/2023'
+  },
+  {
+    id: 3,
+    title: 'Test 3',
+    status: 'DOING',
+    due_date: '11/23/2025'
   }
 ]
 

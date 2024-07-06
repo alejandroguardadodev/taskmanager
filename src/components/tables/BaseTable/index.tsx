@@ -19,7 +19,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 import BaseRow from './BaseRow'
 
-import { ITblHead, ITblCell } from '../../../models/Table'
+import { ITblHead, ITblCell, ITblKeyValue } from '../../../models/Table'
 
 import useResponsive from '../../../hooks/useResponsive'
 
@@ -29,8 +29,13 @@ type handleReader = (row: unknown) => null | ITblCell[]
 
 interface InputCellType {
     id: string;
-    type: "text";
-    onClick?: (data:unknown) => void;
+    type: "text" | "select";
+    onSubmit?: (data:unknown) => void;
+}
+
+interface InputStyleType {
+    id: string;
+    decoration: ITblKeyValue[];
 }
 
 interface MenuItemType {
@@ -70,7 +75,14 @@ const BaseTable = ({ header, data, reader, submenuitems=null, addButtonText, max
         return header.filter((head) => Boolean(head.inputtype)).map((head) => ({
             id: head.id,
             type: head.inputtype? head.inputtype : 'text',
-            onClick: head.onClick,
+            onSubmit: head.onSubmit,
+        }))
+    }, [header])
+
+    const inputstyle = React.useMemo<InputStyleType[]>(() => {
+        return header.filter((head) => Boolean(head.decoration)).map((head) => ({
+            id: head.id,
+            decoration: head.decoration || []
         }))
     }, [header])
 
@@ -148,6 +160,7 @@ const BaseTable = ({ header, data, reader, submenuitems=null, addButtonText, max
                                     hidefileds={hiddenFields}
                                     starticon={startIcon && startIcon(row)}
                                     inputcells={inputcells}
+                                    inputStyle={inputstyle}
                                 />
                             })}
                             {emptyRows > 0 && (

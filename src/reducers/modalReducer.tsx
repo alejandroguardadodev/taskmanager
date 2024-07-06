@@ -1,13 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-export type ModalTitleType = "test"
+export type ModalTitleType = "test" | "task"
 
 export interface IExtraDataType {
     test: null | unknown;
+    task: null | unknown;
 }
 
 export interface IModalReducer {
     test: boolean;
+    task: boolean;
     extradata: IExtraDataType;
 }
 
@@ -18,8 +20,10 @@ export interface PayloadActionType {
 
 const initialStates:IModalReducer = {
     test: false,
+    task: false,
     extradata: {
-        test: null
+        test: null,
+        task: null,
     }
 }
 
@@ -31,25 +35,21 @@ const ModalSlice = createSlice({
         actionOpenModal(state, action:PayloadAction<PayloadActionType>) {
             return {
                 ...state,
-                ...(action.payload.title == "test" && {
-                    test: true,
-                    extradata: {
-                        ...state.extradata,
-                        test: action.payload.extra
-                    }
-                })
+                [action.payload.title]: true,
+                extradata: {
+                    ...state.extradata,
+                    [action.payload.title]: action.payload.extra
+                }
             }
         },
         actionCloseModal(state, action:PayloadAction<ModalTitleType>) {
             return {
                 ...state,
-                ...(action.payload == "test" && {
-                    test: false,
-                    extradata: {
-                        ...state.extradata,
-                        test: null
-                    }
-                })
+                [action.payload]: false,
+                extradata: {
+                    ...state.extradata,
+                    [action.payload]: null
+                }
             }
         }
     }

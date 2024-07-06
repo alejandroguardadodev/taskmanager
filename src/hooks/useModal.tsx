@@ -2,27 +2,39 @@ import React from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import { IModalReducer, ModalTitleType, IExtraDataType, actionOpenModal, actionCloseModal } from '../reducers/modalReducer'
+import { IModalReducer, ModalTitleType, actionOpenModal, actionCloseModal } from '../reducers/modalReducer'
 
 import { RootState, AppDispatch } from '../store'
 
 const useModal = (title:ModalTitleType) => {
     const dispatch = useDispatch<AppDispatch>()
 
-    const { test, extradata } = useSelector<RootState, IModalReducer>(state => state.modal)
+    const { test, task, extradata } = useSelector<RootState, IModalReducer>(state => state.modal)
 
     const open = React.useMemo<boolean>(() => {
         switch(title) {
-            default:
+            case "test":
                 return test
-        }
-    }, [title, test])
-
-
-    const modalextradata = React.useMemo<IExtraDataType>(() => {
-        switch(title) {
+            
+            case "task":
+                return task
+            
             default:
-                return extradata
+                return false
+        }
+    }, [title, task, test])
+
+
+    const modalextradata = React.useMemo<null | unknown>(() => {
+        switch(title) {
+            case "test":
+                return extradata.test
+            
+            case "task":
+                return extradata.task
+
+            default:
+                return null
         }
     }, [title, extradata])
 

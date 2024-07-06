@@ -57,13 +57,13 @@ const items = [
 
 const TestTable = () => {
 
-  const { openModal } = useModal('test')
+  const { openModal:openTaskModal } = useModal('task')
 
   return (
     <BaseTable
         addButtonText="Add Task"
         onAddButton={() => {
-          openModal()
+          openTaskModal()
         }}
         maxHeight={500}
         header={TESTHEADER}
@@ -72,7 +72,7 @@ const TestTable = () => {
         actionSection={(data:unknown) => {
           const task = data as ITask
 
-          return <IconButton disableRipple onClick={() => { alert(task.title) }}><ArrowForwardIosIcon sx={{ fontSize: '.7rem' }} /></IconButton>
+          return <IconButton disableRipple onClick={() => { openTaskModal(task) }}><ArrowForwardIosIcon sx={{ fontSize: '.7rem' }} /></IconButton>
 
         }}
         startIcon={(data:unknown) => {

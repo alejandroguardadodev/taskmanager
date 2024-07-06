@@ -21,9 +21,10 @@ interface ItemContentPropsTypes {
   defaultExpanded?: boolean;
   btntext?: string;
   onAction?: OnActionVoidType;
+  onMenuClose?: OnActionVoidType;
 }
 
-const ItemContent = ({ id, title, defaultExpanded=false, children, btntext, onAction }:ItemContentPropsTypes) => {
+const ItemContent = ({ id, title, defaultExpanded=false, children, btntext, onAction, onMenuClose }:ItemContentPropsTypes) => {
   return (
     <Accordion
       defaultExpanded={defaultExpanded}
@@ -54,7 +55,7 @@ const ItemContent = ({ id, title, defaultExpanded=false, children, btntext, onAc
           width: '100%',
         }}
       >
-        {btntext && (<Button onClick={() => { onAction?.() }} startIcon={<AddCircleIcon />} variant='outlined'> {btntext} </Button>)}
+        {btntext && (<Button onClickCapture={() => { onMenuClose?.() }} onClick={() => { onAction?.() }} startIcon={<AddCircleIcon />} variant='outlined'> {btntext} </Button>)}
         <MenuList dense>
           {children}
         </MenuList>

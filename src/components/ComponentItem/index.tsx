@@ -56,11 +56,12 @@ interface ItemPropsType {
     solebutton?: boolean;
     mb?: number;
     onAction?: OnActionVoidHandle;
+    onMenuClose?: OnActionVoidHandle;
 }
 
-const ComponentItem = ({ text, icon, dissableIconAnimation=false, dissablePaddingBottom=false, solebutton=false, mb, onAction }:ItemPropsType) => {
+const ComponentItem = ({ text, icon, dissableIconAnimation=false, dissablePaddingBottom=false, solebutton=false, mb, onAction, onMenuClose }:ItemPropsType) => {
     return (
-        <CustomMenuItem onClick={() => { onAction?.() }} solebutton={solebutton} dissableIconAnimation={dissableIconAnimation} dissablePaddingBottom={dissablePaddingBottom} sx={{ background: 'transparent !important', ...(mb && { marginBottom: `${mb}px` }) }} disableRipple>
+        <CustomMenuItem onClickCapture={() => { onMenuClose?.() }} onClick={() => { onAction?.() }} solebutton={solebutton} dissableIconAnimation={dissableIconAnimation} dissablePaddingBottom={dissablePaddingBottom} sx={{ background: 'transparent !important', ...(mb && { marginBottom: `${mb}px` }) }} disableRipple>
             {icon && (
                 <ListItemIcon className='icon-object'>
                     {icon}

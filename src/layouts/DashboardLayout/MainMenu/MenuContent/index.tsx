@@ -23,6 +23,7 @@ import ArticleIcon from '@mui/icons-material/Article'
 import Divider from '@mui/material/Divider'
 
 import useResponsive from '../../../../hooks/useResponsive'
+import useModal from '../../../../hooks/useModal'
 
 const Container = styled("div")(() => ({
   padding: '20px 0px',
@@ -49,6 +50,13 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
   const navigate = useNavigate()
 
   const { isTabletOrMobile } = useResponsive()
+
+  const { openModal:openTaskModal } = useModal('task')
+  const { openModal:openTestModal } = useModal('test')
+
+  const handleCloseMenu = () => {
+    if (isTabletOrMobile) onMenuClose?.()
+  }
 
   return (
     <Container>
@@ -79,7 +87,13 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
         </Box>
       )}
 
-      <Button startIcon={<AddCircleIcon />} sx={{ width: '90%', marginBottom: '10px' }} variant='outlined'>Task</Button>
+      <Button 
+        startIcon={<AddCircleIcon />} 
+        sx={{ width: '90%', marginBottom: '10px' }}
+        variant='outlined' 
+        onClickCapture={() => { handleCloseMenu() }}
+        onClick={()=>{ openTaskModal() }}
+      >Task</Button>
 
       <ComponentItem 
           icon={<HomeIcon />}
@@ -88,6 +102,7 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
           dissablePaddingBottom
           solebutton
           mb={5}
+          onMenuClose={handleCloseMenu}
           onAction={() => { navigate("/") }}
         />
 
@@ -98,20 +113,25 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
           dissablePaddingBottom
           solebutton
           mb={5}
+          onMenuClose={handleCloseMenu}
         />
 
       <ItemContent
         id="workspace-action"
         title="Workspaces"
         btntext='Workspace'
+        onAction={() => { openTestModal() }}
+        onMenuClose={handleCloseMenu}
       >
         <ComponentItem 
           icon={<WorkIcon />}
           text='Default'
+          onMenuClose={handleCloseMenu}
         />
         <ComponentItem 
           icon={<WorkIcon />}
           text='Default'
+          onMenuClose={handleCloseMenu}
         />
       </ItemContent>
 
@@ -122,6 +142,7 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
         dissablePaddingBottom
         solebutton
         mb={5}
+        onMenuClose={handleCloseMenu}
       />
 
       <ComponentItem 
@@ -131,6 +152,7 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
         dissablePaddingBottom
         solebutton
         mb={5}
+        onMenuClose={handleCloseMenu}
       />
     </Container>
   )

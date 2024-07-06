@@ -14,6 +14,8 @@ import DashboardLayout from './layouts/DashboardLayout'
 
 import DashboardPage from './pages/HomePage'
 
+import TestModal from './components/modals/TestModal';
+
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
           </Routes>
 
           <ToastContainer />
+
+          <TestModal />
         </ThemeProvider>
       </Router>
     </Provider>

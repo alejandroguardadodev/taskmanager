@@ -18,6 +18,7 @@ import HomeIcon from '@mui/icons-material/Home'
 import SearchIcon from '@mui/icons-material/Search'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone'
+import ArticleIcon from '@mui/icons-material/Article'
 
 import Divider from '@mui/material/Divider'
 
@@ -99,20 +100,10 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
           mb={5}
         />
 
-      <ComponentItem 
-        icon={<ContactPhoneIcon />}
-        text='Contacts'
-        dissableIconAnimation
-        dissablePaddingBottom
-        solebutton
-        mb={5}
-      />
-
       <ItemContent
         id="workspace-action"
         title="Workspaces"
         btntext='Workspace'
-        defaultExpanded
       >
         <ComponentItem 
           icon={<WorkIcon />}
@@ -123,6 +114,24 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
           text='Default'
         />
       </ItemContent>
+
+      <ComponentItem 
+        icon={<ContactPhoneIcon />}
+        text='Contacts'
+        dissableIconAnimation
+        dissablePaddingBottom
+        solebutton
+        mb={5}
+      />
+
+      <ComponentItem 
+        icon={<ArticleIcon />}
+        text='Resumes'
+        dissableIconAnimation
+        dissablePaddingBottom
+        solebutton
+        mb={5}
+      />
     </Container>
   )
 }

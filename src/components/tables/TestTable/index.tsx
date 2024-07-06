@@ -6,6 +6,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import { ITask, TaskReader } from "../../../models/Task"
 
+import useModal from "../../../hooks/useModal"
+
 const TESTHEADER = [
   {
       id: 'title',
@@ -54,9 +56,15 @@ const items = [
 ]
 
 const TestTable = () => {
+
+  const { openModal } = useModal('test')
+
   return (
     <BaseTable
         addButtonText="Add Task"
+        onAddButton={() => {
+          openModal()
+        }}
         maxHeight={500}
         header={TESTHEADER}
         data={data}

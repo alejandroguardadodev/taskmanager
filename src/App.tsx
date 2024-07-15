@@ -11,8 +11,10 @@ import store from './store'
 import CssBaseline from '@mui/material/CssBaseline'
 
 import DashboardLayout from './layouts/DashboardLayout'
+import AuthLayout from './layouts/AuthLayout'
 
 import DashboardPage from './pages/HomePage'
+import SignUpPage from './pages/SignUpPage'
 
 import TestModal from './components/modals/TestModal'
 import TaskMenuModal from './components/modals/TaskMenuModal';
@@ -29,6 +31,10 @@ function App() {
           <Routes>
             <Route path='/' element={<DashboardLayout />}>
               <Route index element={<DashboardPage />} />
+            </Route>
+
+            <Route path='auth' element={<AuthLayout />}>
+            <Route path="signup" element={<SignUpPage />} />
             </Route>
           </Routes>
 

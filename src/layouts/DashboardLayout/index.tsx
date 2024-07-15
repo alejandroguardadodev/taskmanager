@@ -24,8 +24,6 @@ const Container = styled('article')(() => ({
     justifyContent: 'flex-start',
 }))
 
-
-
 const ContentContainer = styled(Box)(({ theme }) => ({
   flexGrow: 1, 
   height: '100%',

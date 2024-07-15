@@ -30,6 +30,21 @@ const theme = createTheme({
     breakpoints,
     palette,
     typography: {
+        h3: {
+            fontFamily: '"Open Sans", sans-serif',
+            fontWeight: 800,
+            fontSize: '2rem',
+            textTransform: 'uppercase',
+            letterSpacing: '-1px',
+            color: 'black'
+        },
+        h4: {
+            fontFamily: "'Montserrat'",
+            fontWeight: 400,
+            fontSize: '1.5rem',
+            textTransform: 'uppercase',
+            color: 'black'
+        },
         h5: {
             fontFamily: '"Open Sans", sans-serif',
             fontWeight: 600,
@@ -81,6 +96,19 @@ const theme = createTheme({
                     textTransform: 'uppercase',
                     paddingTop: '6px',
                     paddingBottom: '6px'
+                },
+                contained: {
+                    padding: '10px 50px',
+                    fontWeight: 700,
+                    fontSize: '.8rem',
+                    boxShadow: 'none',
+                    //border: '1px solid #025951',
+                    transition: 'box-shadow .2s ease-in-out',
+                    '&:hover': {
+                        background: '#025951',
+                        boxShadow: '0px 0px 10px 0px rgba(54,144,136,1)',
+                        //border: '1px solid rgba(54,144,136, .5)',
+                    }
                 }
             }
         },

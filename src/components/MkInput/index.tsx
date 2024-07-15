@@ -25,7 +25,7 @@ const FieldContainer = styled(Stack)(() => ({
     justifyContent: 'center',
     alignItems: 'flex-start',
     gap: '4px',
-    marginBottom: '20px',
+    marginBottom: '10px',
 }))
 
 const InputContainer = styled(Stack, {
@@ -78,7 +78,7 @@ interface MkInputPropsType {
     title?: string;
     defaultvalue?: number | string | Date | DateObject;
     disabled?: boolean;
-    type?: "text" | "number" | "textarea" | "select" | "date" | "time";
+    type?: "text" | "number" | "textarea" | "select" | "date" | "time" | "password";
     placeholder?: string,
     insideInput?: boolean;
     endIcon?: null | React.ReactNode;
@@ -109,7 +109,7 @@ const MkInput = ({ id, title="", mindate, maxdate, defaultvalue="", disabled=fal
     React.useEffect(() => {
         const subscription = watch((value) => {
             if (value) {
-                if (typeof value[id] === 'number') setFieldvalue(parseInt(value[id]))
+                if (typeof value[id] === 'number') setFieldvalue(parseInt(value[id] || "0"))
                 else setFieldvalue(value[id])
             }      
         })

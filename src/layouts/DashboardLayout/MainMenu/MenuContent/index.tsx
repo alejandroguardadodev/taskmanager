@@ -13,12 +13,11 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 
 import CloseIcon from '@mui/icons-material/Close'
-import WorkIcon from '@mui/icons-material/Work'
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle'
 import HomeIcon from '@mui/icons-material/Home'
-import SearchIcon from '@mui/icons-material/Search'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone'
-import ArticleIcon from '@mui/icons-material/Article'
+import FaceIcon from '@mui/icons-material/Face'
+import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning'
+import StoreIcon from '@mui/icons-material/Store'
 
 import Divider from '@mui/material/Divider'
 
@@ -87,57 +86,39 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
         </Box>
       )}
 
-      <Button 
+      {/* <Button 
         startIcon={<AddCircleIcon />} 
         sx={{ width: '90%', marginBottom: '10px' }}
         variant='outlined' 
         onClickCapture={() => { handleCloseMenu() }}
         onClick={()=>{ openTaskModal() }}
-      >Task</Button>
+      >New Kid</Button> */}
 
       <ComponentItem 
-          icon={<HomeIcon />}
-          text='Home'
-          dissableIconAnimation
-          dissablePaddingBottom
-          solebutton
-          mb={5}
-          onMenuClose={handleCloseMenu}
-          onAction={() => { navigate("/") }}
-        />
-
-      <ComponentItem 
-          icon={<SearchIcon />}
-          text='Search'
-          dissableIconAnimation
-          dissablePaddingBottom
-          solebutton
-          mb={5}
-          onMenuClose={handleCloseMenu}
-        />
-
-      <ItemContent
-        id="workspace-action"
-        title="Workspaces"
-        btntext='Workspace'
-        onAction={() => { openTestModal() }}
+        icon={<HomeIcon />}
+        text='Home'
+        dissableIconAnimation
+        dissablePaddingBottom
+        solebutton
+        mb={5}
         onMenuClose={handleCloseMenu}
-      >
-        <ComponentItem 
-          icon={<WorkIcon />}
-          text='Default'
-          onMenuClose={handleCloseMenu}
-        />
-        <ComponentItem 
-          icon={<WorkIcon />}
-          text='Default'
-          onMenuClose={handleCloseMenu}
-        />
-      </ItemContent>
+        onAction={() => { navigate("/") }}
+      />
 
       <ComponentItem 
-        icon={<ContactPhoneIcon />}
-        text='Contacts'
+        icon={<FaceIcon />}
+        text='Kids'
+        dissableIconAnimation
+        dissablePaddingBottom
+        solebutton
+        mb={5}
+        onMenuClose={handleCloseMenu}
+        onAction={() => { navigate("/") }}
+      />
+
+      <ComponentItem 
+        icon={<SupervisedUserCircleIcon />}
+        text='Day Cares'
         dissableIconAnimation
         dissablePaddingBottom
         solebutton
@@ -146,8 +127,35 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
       />
 
       <ComponentItem 
-        icon={<ArticleIcon />}
-        text='Resumes'
+        icon={<EscalatorWarningIcon />}
+        text='Guardians'
+        dissableIconAnimation
+        dissablePaddingBottom
+        solebutton
+        mb={5}
+        onMenuClose={handleCloseMenu}
+      />
+
+      {/* <ItemContent
+        id="workspace-action"
+        title="Groups"
+        onMenuClose={handleCloseMenu}
+      >
+        <ComponentItem 
+          icon={<FamilyRestroomIcon />}
+          text='Groups'
+          onMenuClose={handleCloseMenu}
+        />
+        <ComponentItem 
+          icon={<WorkIcon />}
+          text='Guardians'
+          onMenuClose={handleCloseMenu}
+        />
+      </ItemContent> */}
+
+      <ComponentItem 
+        icon={<StoreIcon />}
+        text='Store'
         dissableIconAnimation
         dissablePaddingBottom
         solebutton

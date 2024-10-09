@@ -24,12 +24,14 @@ const GridItem = styled(Grid)(() => ({
 
 export type SignUpSchemaType = yup.InferType<typeof SignUpSchema>
 
-const initValues:SignUpSchemaType = { 
+const initValues:SignUpSchemaType = {
     firstname: "",
     middlename: "",
     lastname: "",
     username: "",
     contact: "",
+    password: "",
+    confirmpassword: ""
 }
 
 const SignUpForm = () => {

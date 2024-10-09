@@ -13,6 +13,9 @@ import MainMenu from "./MainMenu"
 import useResizePage from "../../hooks/useResizePage"
 import useResponsive from "../../hooks/useResponsive"
 
+const MENU_WIDTH_TABLET = 300
+const MENU_WIDTH_NORMAL = 240
+
 const Container = styled('article')(() => ({
     width: '100vw',
     minWidth: '100vw',
@@ -59,7 +62,7 @@ const DashboardLayout = () => {
         <Stack flexDirection="row" justifyContent="flex-start" alignItems="center" sx={{ flexGrow: 1, width: '100%' }}>
           <MainMenu 
             open={openmenu}
-            menuwidth={isTablet? 300: 240}
+            menuwidth={isTablet? MENU_WIDTH_TABLET: MENU_WIDTH_NORMAL}
             onClose={closeMenuHandle}
           />
           <ContentContainer>
@@ -72,8 +75,8 @@ const DashboardLayout = () => {
                 width: '100%',
                 height: '100%',
               }}
-              >
-                <Outlet />
+            >
+              <Outlet context={[openmenu]} />
             </Stack>
           </ContentContainer>
         </Stack>

@@ -40,8 +40,8 @@ const theme = createTheme({
         },
         h4: {
             fontFamily: "'Montserrat'",
-            fontWeight: 400,
-            fontSize: '1.5rem',
+            fontWeight: 800,
+            fontSize: '1.3rem',
             textTransform: 'uppercase',
             color: 'black'
         },

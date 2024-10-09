@@ -15,25 +15,9 @@ import HeaderTitle from '../../components/Titles/HeaderTitle'
 
 const CONTAINER_PADDING_VERTICAL = 20
 
-const Container = styled("article", {
-  shouldForwardProp: (props) => props !== "isMenuOpen"
-})<{isMenuOpen: boolean}>(({ isMenuOpen }) => ({
-  width: '100%',
-  maxWidth: '1500px',
-  paddingTop: '20px',
-  boxSizing: 'border-box',
-  transition: 'all .2s ease-in-out',
-  ...(isMenuOpen && {
-    paddingLeft: `${CONTAINER_PADDING_VERTICAL}px`,
-    paddingRight: `${CONTAINER_PADDING_VERTICAL}px`,
-  })
-}))
-
 const HomePage = () => {
   
-  const [isMenuOpen] = useOutletContext<[boolean]>()
-
-  const { ref:containerRef, width:containerWidth } = useResizeDetector()
+  const [isMenuOpen, containerWidth] = useOutletContext<[boolean, number]>()
 
   const workspaceSectionWdith = useMemo<number>(() => {
     if (!containerWidth) 
@@ -43,13 +27,13 @@ const HomePage = () => {
   }, [])
 
   return (
-    <Container ref={containerRef} isMenuOpen={isMenuOpen}>
+    <>
       <HeaderTitle title='Day Cares' />
       <WorkspaceSection maxwidth={workspaceSectionWdith} />
       <HeaderTitle title='Kids' marginTop={20} />
       {/* <TestForm /> */}
       <TestTable />
-    </Container>
+    </>
   )
 }
 

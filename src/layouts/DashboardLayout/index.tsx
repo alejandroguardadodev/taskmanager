@@ -10,9 +10,12 @@ import Stack from "@mui/material/Stack"
 import Header from "./Header"
 import MainMenu from "./MainMenu"
 
+import { useResizeDetector } from "react-resize-detector"
+
 import useResizePage from "../../hooks/useResizePage"
 import useResponsive from "../../hooks/useResponsive"
 
+const OUTLETCONTAINER_PADDING_VERTICAL = 20
 const MENU_WIDTH_TABLET = 300
 const MENU_WIDTH_NORMAL = 240
 
@@ -40,6 +43,21 @@ const ContentContainer = styled(Box)(({ theme }) => ({
   },
 }))
 
+const OutletContainer = styled("article", {
+  shouldForwardProp: (props) => props !== "isMenuOpen"
+})<{isMenuOpen: boolean}>(({ isMenuOpen }) => ({
+  width: '100%',
+  height: '100%',
+  maxWidth: '1500px',
+  paddingTop: '20px',
+  boxSizing: 'border-box',
+  transition: 'all .2s ease-in-out',
+  ...(isMenuOpen && {
+    paddingLeft: `${OUTLETCONTAINER_PADDING_VERTICAL}px`,
+    paddingRight: `${OUTLETCONTAINER_PADDING_VERTICAL}px`,
+  })
+}))
+
 const DashboardLayout = () => {
 
   const { pageRef } = useResizePage()
@@ -47,6 +65,8 @@ const DashboardLayout = () => {
   const { isDesktop, isTablet } = useResponsive()
 
   const [ openmenu, setOpenmenu ] = React.useState(false)
+
+  const { ref:outletContainerRef, width:outletContainerWidth } = useResizeDetector()
 
   const closeMenuHandle = () => (setOpenmenu(false))
   const toogleHenu = () => {setOpenmenu(!openmenu)}
@@ -76,7 +96,9 @@ const DashboardLayout = () => {
                 height: '100%',
               }}
             >
-              <Outlet context={[openmenu]} />
+              <OutletContainer ref={outletContainerRef} isMenuOpen={openmenu}>
+                <Outlet context={[openmenu, outletContainerWidth]} />
+              </OutletContainer>
             </Stack>
           </ContentContainer>
         </Stack>

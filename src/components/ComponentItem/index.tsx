@@ -7,8 +7,8 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 
 const CustomMenuItem = styled(MenuItem, {
-    shouldForwardProp: (props) => props !== "dissableIconAnimation" && props !== "dissablePaddingBottom" && props !== "solebutton"
-})<{ dissableIconAnimation: boolean; dissablePaddingBottom: boolean; solebutton: boolean; }>(({ theme, dissableIconAnimation, dissablePaddingBottom, solebutton }) => ({
+    shouldForwardProp: (props) => props !== "dissableIconAnimation" && props !== "dissablePaddingBottom" && props !== "solebutton" && props !== "active"
+})<{ dissableIconAnimation: boolean; dissablePaddingBottom: boolean; solebutton: boolean; active: boolean; }>(({ theme, dissableIconAnimation, dissablePaddingBottom, solebutton, active }) => ({
     width: '100%',
     border: '1px solid rgba(0, 0, 0, 0)',
     ...(!dissablePaddingBottom && {
@@ -32,7 +32,15 @@ const CustomMenuItem = styled(MenuItem, {
         ...( solebutton && {
             border: '1px solid rgba(0, 0, 0, .2)',
         })
-    } 
+    },
+    ...(active && {
+        ...( solebutton && {
+            border: '1px solid rgba(3, 35, 64, .6) !important',
+        }),
+        '& .icon-object svg': {
+            color: 'rgb(3, 35, 64)',
+        },
+    })
 }))
 
 const Text = styled(ListItemText)(() => ({
@@ -53,15 +61,16 @@ interface ItemPropsType {
     icon?: React.ReactNode;
     dissableIconAnimation?: boolean;
     dissablePaddingBottom?: boolean;
+    active?: boolean;
     solebutton?: boolean;
     mb?: number;
     onAction?: OnActionVoidHandle;
     onMenuClose?: OnActionVoidHandle;
 }
 
-const ComponentItem = ({ text, icon, dissableIconAnimation=false, dissablePaddingBottom=false, solebutton=false, mb, onAction, onMenuClose }:ItemPropsType) => {
+const ComponentItem = ({ text, icon, dissableIconAnimation=false, dissablePaddingBottom=false, solebutton=false, active=false, mb, onAction, onMenuClose }:ItemPropsType) => {
     return (
-        <CustomMenuItem onClickCapture={() => { onMenuClose?.() }} onClick={() => { onAction?.() }} solebutton={solebutton} dissableIconAnimation={dissableIconAnimation} dissablePaddingBottom={dissablePaddingBottom} sx={{ background: 'transparent !important', ...(mb && { marginBottom: `${mb}px` }) }} disableRipple>
+        <CustomMenuItem onClickCapture={() => { onMenuClose?.() }} onClick={() => { onAction?.() }} solebutton={solebutton} dissableIconAnimation={dissableIconAnimation} dissablePaddingBottom={dissablePaddingBottom} active={active} sx={{ background: 'transparent !important', ...(mb && { marginBottom: `${mb}px` }) }} disableRipple>
             {icon && (
                 <ListItemIcon className='icon-object'>
                     {icon}

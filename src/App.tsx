@@ -16,6 +16,8 @@ import AuthLayout from './layouts/AuthLayout'
 import DashboardPage from './pages/HomePage'
 import SignUpPage from './pages/SignUpPage'
 
+import KidsPage from './pages/KidsPage'
+
 import TestModal from './components/modals/TestModal'
 import TaskMenuModal from './components/modals/TaskMenuModal';
 
@@ -31,6 +33,7 @@ function App() {
           <Routes>
             <Route path='/' element={<DashboardLayout />}>
               <Route index element={<DashboardPage />} />
+              <Route path='kids' element={<KidsPage />} />
             </Route>
 
             <Route path='auth' element={<AuthLayout />}>

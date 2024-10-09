@@ -1,15 +1,16 @@
 import { styled } from '@mui/system'
 
+import { useMemo } from 'react'
+
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import Box from '@mui/material/Box'
 
-import ItemContent from './ItemContent'
 import ComponentItem from '../../../../components/ComponentItem'
 
 import Typography from '@mui/material/Typography'
 
-import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 
 import CloseIcon from '@mui/icons-material/Close'
@@ -47,11 +48,14 @@ interface MenuContentPropsType {
 const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   const { isTabletOrMobile } = useResponsive()
 
   const { openModal:openTaskModal } = useModal('task')
   const { openModal:openTestModal } = useModal('test')
+
+  const currentPath = useMemo(() => location.pathname.replace("/", ""), [location.pathname])
 
   const handleCloseMenu = () => {
     if (isTabletOrMobile) onMenuClose?.()
@@ -93,13 +97,14 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
         onClickCapture={() => { handleCloseMenu() }}
         onClick={()=>{ openTaskModal() }}
       >New Kid</Button> */}
-
+      
       <ComponentItem 
         icon={<HomeIcon />}
         text='Home'
         dissableIconAnimation
         dissablePaddingBottom
         solebutton
+        active={currentPath == ""}
         mb={5}
         onMenuClose={handleCloseMenu}
         onAction={() => { navigate("/") }}
@@ -111,9 +116,10 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
         dissableIconAnimation
         dissablePaddingBottom
         solebutton
+        active={currentPath == "kids"}
         mb={5}
         onMenuClose={handleCloseMenu}
-        onAction={() => { navigate("/") }}
+        onAction={() => { navigate("/kids") }}
       />
 
       <ComponentItem 
@@ -124,6 +130,7 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
         solebutton
         mb={5}
         onMenuClose={handleCloseMenu}
+        onAction={() => { navigate("/") }}
       />
 
       <ComponentItem 
@@ -134,6 +141,7 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
         solebutton
         mb={5}
         onMenuClose={handleCloseMenu}
+        onAction={() => { navigate("/") }}
       />
 
       {/* <ItemContent
@@ -161,6 +169,7 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
         solebutton
         mb={5}
         onMenuClose={handleCloseMenu}
+        onAction={() => { navigate("/") }}
       />
     </Container>
   )

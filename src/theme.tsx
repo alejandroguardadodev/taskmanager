@@ -41,7 +41,7 @@ const theme = createTheme({
         h4: {
             fontFamily: "'Montserrat'",
             fontWeight: 800,
-            fontSize: '1.3rem',
+            fontSize: '1.2rem',
             textTransform: 'uppercase',
             color: 'black'
         },
@@ -77,13 +77,19 @@ const theme = createTheme({
         }
     },
     components: {
+        MuiAccordionDetails: {},
         MuiAccordionSummary: {
             styleOverrides: {
                 root: {
                     fontFamily: '"Open Sans", sans-serif',
                     fontWeight: 400,
                     fontSize: '.9rem',
-                    color: 'rgba(0, 0, 0, .8)'
+                    color: 'rgba(0, 0, 0, .8)',
+                    '&.header': {
+                        textTransform: 'uppercase',
+                        fontWeight: 600,
+                        letterSpacing: '1px'
+                    }
                 }
             }
         },

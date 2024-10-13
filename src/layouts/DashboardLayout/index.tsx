@@ -14,6 +14,7 @@ import { useResizeDetector } from "react-resize-detector"
 
 import useResizePage from "../../hooks/useResizePage"
 import useResponsive from "../../hooks/useResponsive"
+import useMainMenu from "../../hooks/useMainMenu"
 
 const OUTLETCONTAINER_PADDING_VERTICAL = 20
 const MENU_WIDTH_TABLET = 300
@@ -64,16 +65,20 @@ const DashboardLayout = () => {
   
   const { isDesktop, isTablet } = useResponsive()
 
-  const [ openmenu, setOpenmenu ] = React.useState(false)
-
   const { ref:outletContainerRef, width:outletContainerWidth } = useResizeDetector()
 
-  const closeMenuHandle = () => (setOpenmenu(false))
-  const toogleHenu = () => {setOpenmenu(!openmenu)}
+  const { isMainMenuOpen, openMainMenu, closeMainMenu } = useMainMenu()
+
+  const closeMenuHandle = () => (closeMainMenu())
+  const toogleHenu = () => {
+    if (isMainMenuOpen) closeMainMenu()
+    else openMainMenu()
+  }
 
   React.useEffect(() => {
-    if (isDesktop) setOpenmenu(true)
-    else setOpenmenu(false)
+    if (isDesktop) openMainMenu()
+    else closeMainMenu()
+
   }, [isDesktop])
 
   return (
@@ -81,7 +86,7 @@ const DashboardLayout = () => {
         <Header onToogleMenu={toogleHenu} title="Moonnuit Manager" />
         <Stack flexDirection="row" justifyContent="flex-start" alignItems="center" sx={{ flexGrow: 1, width: '100%' }}>
           <MainMenu 
-            open={openmenu}
+            open={isMainMenuOpen}
             menuwidth={isTablet? MENU_WIDTH_TABLET: MENU_WIDTH_NORMAL}
             onClose={closeMenuHandle}
           />
@@ -96,8 +101,8 @@ const DashboardLayout = () => {
                 height: '100%',
               }}
             >
-              <OutletContainer ref={outletContainerRef} isMenuOpen={openmenu}>
-                <Outlet context={[openmenu, outletContainerWidth]} />
+              <OutletContainer ref={outletContainerRef} isMenuOpen={isMainMenuOpen}>
+                <Outlet context={[isMainMenuOpen, outletContainerWidth]} />
               </OutletContainer>
             </Stack>
           </ContentContainer>

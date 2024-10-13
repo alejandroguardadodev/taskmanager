@@ -128,9 +128,10 @@ const MenuContent = ({ onMenuClose }:MenuContentPropsType) => {
         dissableIconAnimation
         dissablePaddingBottom
         solebutton
+        active={currentPath == "daycares"}
         mb={5}
         onMenuClose={handleCloseMenu}
-        onAction={() => { navigate("/") }}
+        onAction={() => { navigate("/daycares") }}
       />
 
       <ComponentItem 
